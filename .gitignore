@@ -46,3 +46,5 @@ app/content/*/*.*
 __MACOSX
 *.DS_Store
 
+venv
+loadtest/*.csv

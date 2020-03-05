@@ -30,9 +30,7 @@ public final class Dependencies {
 
     // Setup Services
     Consumer<HttpServerRoutes> routes = r -> r.get(appConfig.server.apiRoot,
-                                                   (req, resp) -> NettyHttpUtils.send(resp,
-                                                                                      200,
-                                                                                      this.idGenerator.generate()));
+                                                   (req, resp) -> NettyHttpUtils.send(resp, 200, count()));
     // Setup Server & Client
     HttpServer tmpServer = HttpServer.create()
                                      .host(appConfig.server.host)
@@ -51,5 +49,11 @@ public final class Dependencies {
     }
     this.httpServer = tmpServer;
     this.testingClient = tmpClient;
+  }
+
+  private String count() {
+    var counter = this.idGenerator.generate();
+    System.out.println(counter);
+    return counter;
   }
 }
