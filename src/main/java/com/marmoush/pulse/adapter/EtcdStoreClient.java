@@ -19,8 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class EtcdStoreClient implements KeyValueStoreClient {
   private final KV kvClient;
 
-  public EtcdStoreClient(String url) {
-    Client client = Client.builder().endpoints(url).build();
+  public EtcdStoreClient(Client client) {
     this.kvClient = client.getKVClient();
   }
 

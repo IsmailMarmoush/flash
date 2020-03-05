@@ -1,6 +1,7 @@
 package com.marmoush.pulse;
 
 import com.marmoush.pulse.adapter.EtcdStoreClient;
+import io.etcd.jetcd.Client;
 import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
@@ -10,7 +11,8 @@ import static io.vavr.API.Some;
 import static io.vavr.control.Option.none;
 
 public class EtcdTest {
-  private EtcdStoreClient client = new EtcdStoreClient("http://localhost:9001");
+  private final Client clientBuilt = Client.builder().endpoints("http://localhost:9001").build();
+  private final EtcdStoreClient client = new EtcdStoreClient(clientBuilt);
   String keyPrefix = "myKey";
   String value = "myValue";
 
