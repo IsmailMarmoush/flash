@@ -1,5 +1,6 @@
 package com.marmoush.pulse;
 
+import com.marmoush.jutils.core.adapter.generator.id.SerialIdGenerator;
 import com.marmoush.jutils.core.domain.port.IdGenerator;
 import com.marmoush.jutils.core.utils.netty.NettyHttpUtils;
 import io.netty.handler.ssl.SslContextBuilder;
@@ -10,6 +11,7 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.server.HttpServer;
 import reactor.netty.http.server.HttpServerRoutes;
 
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
 public final class Dependencies {
@@ -20,7 +22,7 @@ public final class Dependencies {
   public final HttpClient testingClient;
 
   public Dependencies(AppConfig appConfig) {
-    this.idGenerator = appConfig.server.idGenerator;
+    this.idGenerator = new SerialIdGenerator(new AtomicLong());
     // Setup Services
     Consumer<HttpServerRoutes> routes = r -> r.get(appConfig.server.apiRoot,
                                                    (req, resp) -> NettyHttpUtils.send(resp,

@@ -27,7 +27,6 @@ public class AppConfig {
     public final int maxStartupTime;
     public final boolean isWireTapping;
     public final String apiRoot;
-    public final IdGenerator idGenerator;
 
     private Server(YamlConfigMap configs) {
       host = configs.asString("host");
@@ -35,7 +34,6 @@ public class AppConfig {
       maxStartupTime = configs.asInteger("maxStartupTime");
       isWireTapping = configs.asBoolean("isWiretapping");
       apiRoot = configs.asString("api.root");
-      idGenerator = new SerialIdGenerator(new AtomicLong());
     }
   }
 
