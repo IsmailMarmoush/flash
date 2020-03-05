@@ -64,7 +64,6 @@ public class AppConfig {
       // Client
       clientSslCertificate = Paths.get(configs.asString("client.sslCertificatePath"));
       clientPrivateKey = Paths.get(configs.asString("client.privateKeyPath")).toFile();
-
     }
   }
 }
