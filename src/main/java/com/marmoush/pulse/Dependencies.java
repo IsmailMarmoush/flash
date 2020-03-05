@@ -23,7 +23,9 @@ public final class Dependencies {
     this.idGenerator = appConfig.server.idGenerator;
     // Setup Services
     Consumer<HttpServerRoutes> routes = r -> r.get(appConfig.server.apiRoot,
-                                                   (req, resp) -> NettyHttpUtils.send(resp, 200, "hello"));
+                                                   (req, resp) -> NettyHttpUtils.send(resp,
+                                                                                      200,
+                                                                                      this.idGenerator.generate()));
     // Setup Server & Client
     HttpServer tmpServer = HttpServer.create()
                                      .host(appConfig.server.host)

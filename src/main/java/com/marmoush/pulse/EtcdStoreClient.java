@@ -5,20 +5,20 @@ import io.etcd.jetcd.Client;
 import io.etcd.jetcd.KV;
 import io.etcd.jetcd.KeyValue;
 import io.etcd.jetcd.kv.GetResponse;
+import io.etcd.jetcd.options.GetOption;
 import io.etcd.jetcd.options.PutOption;
 import io.vavr.Tuple;
 import io.vavr.collection.HashMap;
-import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 
-public class EtcdClient {
+public class EtcdStoreClient implements KeyValueStoreClient {
   private final KV kvClient;
 
-  public EtcdClient(String url) {
+  public EtcdStoreClient(String url) {
     Client client = Client.builder().endpoints(url).build();
     this.kvClient = client.getKVClient();
   }
@@ -26,6 +26,13 @@ public class EtcdClient {
   public Mono<Option<String>> get(String key) {
     ByteSequence byteKey = ByteSequence.from(key.getBytes());
     return Mono.fromFuture(kvClient.get(byteKey)).map(GetResponse::getKvs).map(this::mapOf).map(c -> c.get(key));
+  }
+
+  public Mono<Map<String, String>> getAllWithPrefix(String key) {
+    ByteSequence byteKey = ByteSequence.from(key.getBytes());
+    return Mono.fromFuture(kvClient.get(byteKey, GetOption.newBuilder().withPrefix(byteKey).build()))
+               .map(GetResponse::getKvs)
+               .map(this::mapOf);
   }
 
   public Mono<String> put(String key, String value) {

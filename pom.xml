@@ -9,8 +9,6 @@
         <version>0.3.5</version>
     </parent>
 
-
-    <groupId>com.marmoush</groupId>
     <artifactId>pulse</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
@@ -65,7 +63,7 @@
         <dependency>
             <groupId>com.marmoush.jutils</groupId>
             <artifactId>core</artifactId>
-            <version>0.5.2</version>
+            <version>0.5.4</version>
         </dependency>
         <dependency>
             <groupId>io.etcd</groupId>

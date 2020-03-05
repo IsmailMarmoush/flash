@@ -7,17 +7,17 @@ import com.marmoush.jutils.core.utils.yaml.YamlConfigMap;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class AppConfig {
 
   public final Server server;
-  public final Consul consul;
+  public final Etcd etcd;
   public final Security security;
 
   public AppConfig(YamlConfigMap configs) {
     server = new Server(configs.asYamlConfigMap("server"));
-    consul = new Consul(configs.asYamlConfigMap("consul"));
+    etcd = new Etcd(configs.asYamlConfigMap("etcd"));
     security = new Security(configs.asYamlConfigMap("security"));
   }
 
@@ -35,15 +35,15 @@ public class AppConfig {
       maxStartupTime = configs.asInteger("maxStartupTime");
       isWireTapping = configs.asBoolean("isWiretapping");
       apiRoot = configs.asString("api.root");
-      idGenerator = new SerialIdGenerator(new AtomicInteger());
+      idGenerator = new SerialIdGenerator(new AtomicLong());
     }
   }
 
-  public class Consul {
+  public class Etcd {
     public final String uri;
 
-    private Consul(YamlConfigMap configs) {
-      uri = configs.asString("consul.uri");
+    private Etcd(YamlConfigMap configs) {
+      uri = configs.asString("uri");
     }
   }
 
