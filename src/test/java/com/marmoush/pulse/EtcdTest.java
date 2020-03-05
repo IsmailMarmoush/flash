@@ -1,5 +1,6 @@
 package com.marmoush.pulse;
 
+import com.marmoush.pulse.adapter.EtcdStoreClient;
 import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 

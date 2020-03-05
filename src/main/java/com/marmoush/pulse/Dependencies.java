@@ -3,6 +3,7 @@ package com.marmoush.pulse;
 import com.marmoush.jutils.core.adapter.generator.id.SerialIdGenerator;
 import com.marmoush.jutils.core.domain.port.IdGenerator;
 import com.marmoush.jutils.core.utils.netty.NettyHttpUtils;
+import com.marmoush.pulse.adapter.EtcdStoreClient;
 import io.netty.handler.ssl.SslContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,11 @@ public final class Dependencies {
   public final HttpClient testingClient;
 
   public Dependencies(AppConfig appConfig) {
-    this.idGenerator = new SerialIdGenerator(new AtomicLong());
+    KeyValueStoreClient kvClient = new EtcdStoreClient(appConfig.etcd.uri);
+    MaxIndexService maxIndexService = new MaxIndexService(kvClient);
+    var maxIndex = maxIndexService.getMax(appConfig.etcd.keyName).block().getOrElse(0L);
+    this.idGenerator = new SerialIdGenerator(new AtomicLong(++maxIndex));
+
     // Setup Services
     Consumer<HttpServerRoutes> routes = r -> r.get(appConfig.server.apiRoot,
                                                    (req, resp) -> NettyHttpUtils.send(resp,

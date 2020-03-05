@@ -39,9 +39,11 @@ public class AppConfig {
 
   public class Etcd {
     public final String uri;
+    public final String keyName;
 
     private Etcd(YamlConfigMap configs) {
       uri = configs.asString("uri");
+      keyName = configs.asString("key");
     }
   }
 

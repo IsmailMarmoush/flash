@@ -1,5 +1,6 @@
-package com.marmoush.pulse;
+package com.marmoush.pulse.adapter;
 
+import com.marmoush.pulse.KeyValueStoreClient;
 import io.etcd.jetcd.ByteSequence;
 import io.etcd.jetcd.Client;
 import io.etcd.jetcd.KV;
