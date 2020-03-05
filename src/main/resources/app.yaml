@@ -1,0 +1,32 @@
+projectName: alz
+#----------------------------------------------------------------------
+# Server Configs
+#----------------------------------------------------------------------
+server:
+  host: "127.0.0.1"
+  port: 8000
+  maxStartupTime: 10
+  isWiretapping: true
+
+#----------------------------------------------------------------------
+#  API Configs
+#----------------------------------------------------------------------
+api:
+  root: /
+
+#----------------------------------------------------------------------
+# Consul Configs
+#----------------------------------------------------------------------
+etcd:
+  uri: http://localhost:9001
+
+#----------------------------------------------------------------------
+# Security Configs
+#----------------------------------------------------------------------
+
+security:
+  server.isSecure: false
+  server.sslCertificatePath: secrets/server/certificate.cert
+  server.privateKeyPath: secrets/server/private-pkcs8.key
+  client.sslCertificatePath: secrets/client/certificate.cert
+  client.privateKeyPath: secrets/client/private-pkcs8.key

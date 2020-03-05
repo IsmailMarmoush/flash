@@ -1,4 +1,4 @@
-package com.marmoush.flash;
+package com.marmoush.pulse;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -9,14 +9,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.net.InetSocketAddress;
-import java.time.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public final class AtomicServer {
 
   public static void main(String[] args) throws Exception {
-    var startTime = LocalDateTime.now();
-    long delay = 10000;
     AtomicLong id = new AtomicLong();
     EventLoopGroup group = new NioEventLoopGroup();
 
@@ -28,7 +25,7 @@ public final class AtomicServer {
 
       serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
         protected void initChannel(SocketChannel socketChannel) {
-          socketChannel.pipeline().addLast(new AtomicHandler(id, startTime, delay));
+          socketChannel.pipeline().addLast(new AtomicHandler(id));
         }
       });
 

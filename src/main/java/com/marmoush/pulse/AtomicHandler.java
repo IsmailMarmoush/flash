@@ -1,30 +1,25 @@
-package com.marmoush.flash;
+package com.marmoush.pulse;
 
-import io.netty.buffer.*;
-import io.netty.channel.*;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
-import java.time.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class AtomicHandler extends ChannelInboundHandlerAdapter {
   private final AtomicLong id;
-  private final LocalDateTime appStartTime;
-  private final long delay;
 
-  public AtomicHandler(AtomicLong id, LocalDateTime appStartTime, long delay) {
+  public AtomicHandler(AtomicLong id) {
     this.id = id;
-    this.appStartTime = appStartTime;
-    this.delay = delay;
   }
 
   @Override
-  public void channelRead(ChannelHandlerContext ctx, Object msg) throws InterruptedException {
+  public void channelRead(ChannelHandlerContext ctx, Object msg) {
     ByteBuf inBuffer = (ByteBuf) msg;
     var received = Long.parseLong(inBuffer.toString(CharsetUtil.UTF_8).trim());
-    while (Duration.between(appStartTime, LocalDateTime.now()).toMillis() < delay) {
-      Thread.sleep(1000);
-    }
     if (received > id.get()) {
       id.set(received);
     }
