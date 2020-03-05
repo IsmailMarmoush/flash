@@ -1,13 +1,10 @@
 package com.marmoush.pulse;
 
-import com.marmoush.jutils.core.adapter.generator.id.SerialIdGenerator;
-import com.marmoush.jutils.core.domain.port.IdGenerator;
 import com.marmoush.jutils.core.utils.yaml.YamlConfigMap;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class AppConfig {
 

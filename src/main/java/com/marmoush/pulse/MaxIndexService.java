@@ -11,6 +11,8 @@ public class MaxIndexService {
   }
 
   public Mono<Option<Long>> getMax(String prefix) {
-    return kvClient.getAllWithPrefix(prefix).map(m -> m.values().map(String::trim).map(Long::parseLong)).map(m -> m.max());
+    return kvClient.getAllWithPrefix(prefix)
+                   .map(m -> m.values().map(String::trim).map(Long::parseLong))
+                   .map(m -> m.max());
   }
 }
