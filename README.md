@@ -1,6 +1,12 @@
 # Pulse
 Pulse is a synchronous events counter
 
+## Running tests requires etcd
+```
+docker run -it --net=host quay.io/coreos/etcd:v3.4.4
+mvn install
+```
+
 ## Benchmarking
 ```bash
 docker run -i --net=host loadimpact/k6 run --vus 30 --duration 30s - <k6.js

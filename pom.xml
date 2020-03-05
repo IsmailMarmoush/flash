@@ -63,7 +63,12 @@
         <dependency>
             <groupId>com.marmoush.jutils</groupId>
             <artifactId>core</artifactId>
-            <version>0.5.4</version>
+            <version>0.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.marmoush.jutils</groupId>
+            <artifactId>etcd</artifactId>
+            <version>0.5.5</version>
         </dependency>
         <dependency>
             <groupId>io.etcd</groupId>

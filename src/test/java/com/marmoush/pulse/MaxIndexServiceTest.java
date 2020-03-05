@@ -1,6 +1,7 @@
 package com.marmoush.pulse;
 
-import com.marmoush.pulse.adapter.EtcdStoreClient;
+import com.marmoush.jutils.etcd.EtcdStoreClient;
+import com.marmoush.jutils.keyvaluestore.KeyValueStoreClient;
 import io.etcd.jetcd.Client;
 import io.vavr.collection.HashMap;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,8 @@ import reactor.test.StepVerifier;
 import static io.vavr.control.Option.some;
 
 public class MaxIndexServiceTest {
-  private final Client clientBuilt = Client.builder().endpoints("http://localhost:9001").build();
-  private final EtcdStoreClient client = new EtcdStoreClient(clientBuilt);
+  private final Client clientBuilt = Client.builder().endpoints("http://localhost:2379").build();
+  private final KeyValueStoreClient client = new EtcdStoreClient(clientBuilt);
   private final MaxIndexService maxIndexService = new MaxIndexService(client);
 
   @Test
